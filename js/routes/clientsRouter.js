@@ -13,7 +13,7 @@ function check_id(id) {
     return ObjectId.isValid(id)
 }
 
-router.get("/Clients", async (req, res) => {
+router.get("/ClientsGet", async (req, res) => {
     let clients = []
 
     if (req.body) {
@@ -30,8 +30,8 @@ router.get("/Clients", async (req, res) => {
     return res.status(200).json(clients)
 })
 
-router.post("/Clients", async (req, res) => {
-    const { name, email, age } = req.body
+router.post("/ClientsPost", async (req, res) => {
+    const { name, email, age, books } = req.body
 
     const check_exist_client = await prisma.client.findMany({
         where: {
@@ -39,17 +39,18 @@ router.post("/Clients", async (req, res) => {
         }
     })
 
-    if (!name || !email || !age){
-        return res.status(400).json({ message: "Você não pode criar um cliente sem expecificar o seu nome, e email" })
+    if (!name || !email || !age || !books){
+        return res.status(400).json({ message: "Você não pode criar um cliente sem expecificar o seu nome, e email, idade e seus livros que comprou." })
     } else {
         if (check_exist_client.length > 0) {
             return res.status(400).json({ message: "Você não pode adicionar um cliente que tem o mesmo email" })
         } else {
             await prisma.client.create({
                 data: {
-                    name,
-                    email,
-                    age
+                    name: name,
+                    email: email,
+                    age: age,
+                    books: books
                 }
             })
         }
@@ -58,7 +59,7 @@ router.post("/Clients", async (req, res) => {
     }
 })
 
-router.delete("/Clients/:id", async (req, res) => {
+router.delete("/ClientsDelete/:id", async (req, res) => {
     if (check_id(req.params.id) == true) {
         await prisma.client.delete({
             where: {
@@ -71,8 +72,8 @@ router.delete("/Clients/:id", async (req, res) => {
     }
 })
 
-router.put("/Books/:id", async (req, res) => {
-    const { name, age, email } = req.body
+router.put("/ClientsPut/:id", async (req, res) => {
+    const { name, age, email, books } = req.body
     
     let clients = await prisma.client.findUnique({
         where: {
@@ -80,16 +81,17 @@ router.put("/Books/:id", async (req, res) => {
         }
     })
 
-    if (check_id(req.params.id) == true && clients.length > 0) {
+    if (check_id(req.params.id) && clients) {
         
-        if (!name || !age || !email) {
-            res.status(400).json({ message: "Você não pode cadastrar um cliente sem expecificar o seu nome, idade e email" })
+        if (!name || !age || !email || !books || !Array.isArray(books)) {
+            res.status(400).json({ message: "Você não pode cadastrar um cliente sem expecificar o seu nome, idade e email e livros comprados." })
         } else {
             await prisma.client.update({
                 data: {
-                    name,
-                    age,
-                    email
+                    name: name,
+                    age: age,
+                    email: email,
+                    books: books
                 },
                 where: {
                     id: req.params.id
@@ -99,7 +101,7 @@ router.put("/Books/:id", async (req, res) => {
         }
 
     } else {
-        return res.status(400).json({ message: "Você não pode atualizar as informações de um cliente sem expecificar o seu nome, idade e email" })
+        return res.status(400).json({ message: "Você não pode atualizar as informações de um cliente sem expecificar o seu nome, idade e email e livros comprados ou se seu ID for inválido." })
     }
 })
 

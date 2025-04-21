@@ -13,4 +13,5 @@ model Client {
   name  String
   email String
   age   Int
+  books Json?
 }

@@ -134,7 +134,8 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env"
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "..",
   "clientVersion": "6.6.0",
@@ -143,12 +144,11 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL_DB1",
-        "value": null
+        "value": "mongodb+srv://vghghfghjgu:ad3qzk3W1mYPisQ5@library.hagcb4t.mongodb.net/librarydb?retryWrites=true&w=majority&appName=Library"
       }
     }
   },
@@ -162,8 +162,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "generated",
-    "",
+    "prisma/db1/generated",
+    "db1/generated",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -193,7 +193,7 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/query_engine-windows.dll.node")
+path.join(process.cwd(), "prisma/db1/generated/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "generated/schema.prisma")
+path.join(process.cwd(), "prisma/db1/generated/schema.prisma")

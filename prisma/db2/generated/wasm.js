@@ -114,7 +114,8 @@ exports.Prisma.ClientScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  age: 'age'
+  age: 'age',
+  books: 'books'
 };
 
 exports.Prisma.SortOrder = {

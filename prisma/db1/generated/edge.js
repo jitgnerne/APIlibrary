@@ -133,7 +133,8 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env"
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "..",
   "clientVersion": "6.6.0",
@@ -142,12 +143,11 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL_DB1",
-        "value": null
+        "value": "mongodb+srv://vghghfghjgu:ad3qzk3W1mYPisQ5@library.hagcb4t.mongodb.net/librarydb?retryWrites=true&w=majority&appName=Library"
       }
     }
   },

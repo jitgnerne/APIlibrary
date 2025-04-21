@@ -862,6 +862,7 @@ export namespace Prisma {
     name: number
     email: number
     age: number
+    books: number
     _all: number
   }
 
@@ -893,6 +894,7 @@ export namespace Prisma {
     name?: true
     email?: true
     age?: true
+    books?: true
     _all?: true
   }
 
@@ -987,6 +989,7 @@ export namespace Prisma {
     name: string
     email: string
     age: number
+    books: JsonValue
     _count: ClientCountAggregateOutputType | null
     _avg: ClientAvgAggregateOutputType | null
     _sum: ClientSumAggregateOutputType | null
@@ -1013,6 +1016,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     age?: boolean
+    books?: boolean
   }, ExtArgs["result"]["client"]>
 
 
@@ -1022,9 +1026,10 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     age?: boolean
+    books?: boolean
   }
 
-  export type ClientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "age", ExtArgs["result"]["client"]>
+  export type ClientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "age" | "books", ExtArgs["result"]["client"]>
 
   export type $ClientPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Client"
@@ -1034,6 +1039,7 @@ export namespace Prisma {
       name: string
       email: string
       age: number
+      books: Prisma.JsonValue
     }, ExtArgs["result"]["client"]>
     composites: {}
   }
@@ -1430,6 +1436,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Client", 'String'>
     readonly email: FieldRef<"Client", 'String'>
     readonly age: FieldRef<"Client", 'Int'>
+    readonly books: FieldRef<"Client", 'Json'>
   }
     
 
@@ -1786,7 +1793,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
-    age: 'age'
+    age: 'age',
+    books: 'books'
   };
 
   export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
@@ -1842,6 +1850,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1866,6 +1881,7 @@ export namespace Prisma {
     name?: StringFilter<"Client"> | string
     email?: StringFilter<"Client"> | string
     age?: IntFilter<"Client"> | number
+    books?: JsonFilter<"Client">
   }
 
   export type ClientOrderByWithRelationInput = {
@@ -1873,6 +1889,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     age?: SortOrder
+    books?: SortOrder
   }
 
   export type ClientWhereUniqueInput = Prisma.AtLeast<{
@@ -1883,6 +1900,7 @@ export namespace Prisma {
     name?: StringFilter<"Client"> | string
     email?: StringFilter<"Client"> | string
     age?: IntFilter<"Client"> | number
+    books?: JsonFilter<"Client">
   }, "id">
 
   export type ClientOrderByWithAggregationInput = {
@@ -1890,6 +1908,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     age?: SortOrder
+    books?: SortOrder
     _count?: ClientCountOrderByAggregateInput
     _avg?: ClientAvgOrderByAggregateInput
     _max?: ClientMaxOrderByAggregateInput
@@ -1905,6 +1924,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Client"> | string
     email?: StringWithAggregatesFilter<"Client"> | string
     age?: IntWithAggregatesFilter<"Client"> | number
+    books?: JsonWithAggregatesFilter<"Client">
   }
 
   export type ClientCreateInput = {
@@ -1912,6 +1932,7 @@ export namespace Prisma {
     name: string
     email: string
     age: number
+    books: InputJsonValue
   }
 
   export type ClientUncheckedCreateInput = {
@@ -1919,18 +1940,21 @@ export namespace Prisma {
     name: string
     email: string
     age: number
+    books: InputJsonValue
   }
 
   export type ClientUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
+    books?: InputJsonValue | InputJsonValue
   }
 
   export type ClientUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
+    books?: InputJsonValue | InputJsonValue
   }
 
   export type ClientCreateManyInput = {
@@ -1938,18 +1962,21 @@ export namespace Prisma {
     name: string
     email: string
     age: number
+    books: InputJsonValue
   }
 
   export type ClientUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
+    books?: InputJsonValue | InputJsonValue
   }
 
   export type ClientUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
+    books?: InputJsonValue | InputJsonValue
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -1977,12 +2004,24 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
 
   export type ClientCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
     age?: SortOrder
+    books?: SortOrder
   }
 
   export type ClientAvgOrderByAggregateInput = {
@@ -2039,6 +2078,20 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -2120,6 +2173,17 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
   }
 
 
