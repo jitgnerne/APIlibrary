@@ -21,6 +21,6 @@ BOOK:
   price,
   amount
 
-Esse repoditório é privado, e foi criado no dia:
+Esse repoditório é público, e foi criado no dia:
 
 16/04/25
