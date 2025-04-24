@@ -851,6 +851,7 @@ export namespace Prisma {
     author: string | null
     price: number | null
     amount: number | null
+    publisher: string | null
   }
 
   export type BookMaxAggregateOutputType = {
@@ -859,6 +860,7 @@ export namespace Prisma {
     author: string | null
     price: number | null
     amount: number | null
+    publisher: string | null
   }
 
   export type BookCountAggregateOutputType = {
@@ -867,6 +869,7 @@ export namespace Prisma {
     author: number
     price: number
     amount: number
+    publisher: number
     _all: number
   }
 
@@ -887,6 +890,7 @@ export namespace Prisma {
     author?: true
     price?: true
     amount?: true
+    publisher?: true
   }
 
   export type BookMaxAggregateInputType = {
@@ -895,6 +899,7 @@ export namespace Prisma {
     author?: true
     price?: true
     amount?: true
+    publisher?: true
   }
 
   export type BookCountAggregateInputType = {
@@ -903,6 +908,7 @@ export namespace Prisma {
     author?: true
     price?: true
     amount?: true
+    publisher?: true
     _all?: true
   }
 
@@ -996,8 +1002,9 @@ export namespace Prisma {
     id: string
     name: string | null
     author: string | null
-    price: number
+    price: number | null
     amount: number | null
+    publisher: string | null
     _count: BookCountAggregateOutputType | null
     _avg: BookAvgAggregateOutputType | null
     _sum: BookSumAggregateOutputType | null
@@ -1025,6 +1032,7 @@ export namespace Prisma {
     author?: boolean
     price?: boolean
     amount?: boolean
+    publisher?: boolean
   }, ExtArgs["result"]["book"]>
 
 
@@ -1035,9 +1043,10 @@ export namespace Prisma {
     author?: boolean
     price?: boolean
     amount?: boolean
+    publisher?: boolean
   }
 
-  export type BookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "author" | "price" | "amount", ExtArgs["result"]["book"]>
+  export type BookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "author" | "price" | "amount" | "publisher", ExtArgs["result"]["book"]>
 
   export type $BookPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Book"
@@ -1046,8 +1055,9 @@ export namespace Prisma {
       id: string
       name: string | null
       author: string | null
-      price: number
+      price: number | null
       amount: number | null
+      publisher: string | null
     }, ExtArgs["result"]["book"]>
     composites: {}
   }
@@ -1445,6 +1455,7 @@ export namespace Prisma {
     readonly author: FieldRef<"Book", 'String'>
     readonly price: FieldRef<"Book", 'Float'>
     readonly amount: FieldRef<"Book", 'Int'>
+    readonly publisher: FieldRef<"Book", 'String'>
   }
     
 
@@ -1639,7 +1650,7 @@ export namespace Prisma {
     /**
      * The data needed to create a Book.
      */
-    data: XOR<BookCreateInput, BookUncheckedCreateInput>
+    data?: XOR<BookCreateInput, BookUncheckedCreateInput>
   }
 
   /**
@@ -1802,7 +1813,8 @@ export namespace Prisma {
     name: 'name',
     author: 'author',
     price: 'price',
-    amount: 'amount'
+    amount: 'amount',
+    publisher: 'publisher'
   };
 
   export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
@@ -1881,8 +1893,9 @@ export namespace Prisma {
     id?: StringFilter<"Book"> | string
     name?: StringNullableFilter<"Book"> | string | null
     author?: StringNullableFilter<"Book"> | string | null
-    price?: FloatFilter<"Book"> | number
+    price?: FloatNullableFilter<"Book"> | number | null
     amount?: IntNullableFilter<"Book"> | number | null
+    publisher?: StringNullableFilter<"Book"> | string | null
   }
 
   export type BookOrderByWithRelationInput = {
@@ -1891,6 +1904,7 @@ export namespace Prisma {
     author?: SortOrder
     price?: SortOrder
     amount?: SortOrder
+    publisher?: SortOrder
   }
 
   export type BookWhereUniqueInput = Prisma.AtLeast<{
@@ -1900,8 +1914,9 @@ export namespace Prisma {
     NOT?: BookWhereInput | BookWhereInput[]
     name?: StringNullableFilter<"Book"> | string | null
     author?: StringNullableFilter<"Book"> | string | null
-    price?: FloatFilter<"Book"> | number
+    price?: FloatNullableFilter<"Book"> | number | null
     amount?: IntNullableFilter<"Book"> | number | null
+    publisher?: StringNullableFilter<"Book"> | string | null
   }, "id">
 
   export type BookOrderByWithAggregationInput = {
@@ -1910,6 +1925,7 @@ export namespace Prisma {
     author?: SortOrder
     price?: SortOrder
     amount?: SortOrder
+    publisher?: SortOrder
     _count?: BookCountOrderByAggregateInput
     _avg?: BookAvgOrderByAggregateInput
     _max?: BookMaxOrderByAggregateInput
@@ -1924,60 +1940,68 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Book"> | string
     name?: StringNullableWithAggregatesFilter<"Book"> | string | null
     author?: StringNullableWithAggregatesFilter<"Book"> | string | null
-    price?: FloatWithAggregatesFilter<"Book"> | number
+    price?: FloatNullableWithAggregatesFilter<"Book"> | number | null
     amount?: IntNullableWithAggregatesFilter<"Book"> | number | null
+    publisher?: StringNullableWithAggregatesFilter<"Book"> | string | null
   }
 
   export type BookCreateInput = {
     id?: string
     name?: string | null
     author?: string | null
-    price: number
+    price?: number | null
     amount?: number | null
+    publisher?: string | null
   }
 
   export type BookUncheckedCreateInput = {
     id?: string
     name?: string | null
     author?: string | null
-    price: number
+    price?: number | null
     amount?: number | null
+    publisher?: string | null
   }
 
   export type BookUpdateInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableIntFieldUpdateOperationsInput | number | null
+    publisher?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BookUncheckedUpdateInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableIntFieldUpdateOperationsInput | number | null
+    publisher?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BookCreateManyInput = {
     id?: string
     name?: string | null
     author?: string | null
-    price: number
+    price?: number | null
     amount?: number | null
+    publisher?: string | null
   }
 
   export type BookUpdateManyMutationInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableIntFieldUpdateOperationsInput | number | null
+    publisher?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BookUncheckedUpdateManyInput = {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
     amount?: NullableIntFieldUpdateOperationsInput | number | null
+    publisher?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2011,15 +2035,16 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -2040,6 +2065,7 @@ export namespace Prisma {
     author?: SortOrder
     price?: SortOrder
     amount?: SortOrder
+    publisher?: SortOrder
   }
 
   export type BookAvgOrderByAggregateInput = {
@@ -2053,6 +2079,7 @@ export namespace Prisma {
     author?: SortOrder
     price?: SortOrder
     amount?: SortOrder
+    publisher?: SortOrder
   }
 
   export type BookMinOrderByAggregateInput = {
@@ -2061,6 +2088,7 @@ export namespace Prisma {
     author?: SortOrder
     price?: SortOrder
     amount?: SortOrder
+    publisher?: SortOrder
   }
 
   export type BookSumOrderByAggregateInput = {
@@ -2105,20 +2133,21 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -2143,12 +2172,13 @@ export namespace Prisma {
     unset?: boolean
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+    unset?: boolean
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -2189,15 +2219,16 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -2258,20 +2289,21 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -2288,18 +2320,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-    isSet?: boolean
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
   }
 

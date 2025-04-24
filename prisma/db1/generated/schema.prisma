@@ -9,9 +9,10 @@ datasource db {
 }
 
 model Book {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  name   String?
-  author String?
-  price  Float
-  amount Int?
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  author    String?
+  price     Float?
+  amount    Int?
+  publisher String?
 }

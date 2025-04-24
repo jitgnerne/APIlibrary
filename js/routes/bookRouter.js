@@ -21,7 +21,8 @@ router.get("/Books", async (req, res) => {
             where: {
                 name: req.query.name,
                 price: req.query.price ? parseFloat(req.query.price) : undefined,
-                author: req.query.author
+                author: req.query.author ? String(req.query.author) : undefined,
+                publisher: req.query.publisher ? String(req.query.publisher) : undefined
             }
         })
     } else {
@@ -31,20 +32,38 @@ router.get("/Books", async (req, res) => {
 })
 
 router.post("/Books", async (req, res) => {
-    const { name, author, price, amount } = req.body
-    if (!name || !author || !price || !amount) {
-        return res.status(400).json({ message: "Você não pode criar um livro sem expecificar o seu nome, author, preço e quantidade" })
-    } else {
-        await prisma.book.create({
-            data: {
-                name,
-                author,
-                price,
-                amount
-            }
-        })
+    const { name, author, price, amount, publisher } = req.body
 
-        return res.status(201).json(req.body)
+    const check_exist_book = await prisma.book.findMany({
+        where: {
+            name: name,
+            author: author ? String(author) : undefined,
+            price: price ? parseFloat(price) : undefined,
+            amount: amount ? parseInt(amount) : undefined,
+            publisher: publisher ? String(publisher) : undefined
+        }
+    })
+
+    if (!name || !author || !price || !amount || !publisher) {
+        return res.status(400).json({ message: "Você não pode criar um livro sem expecificar o seu nome, author, preço, quantidade e publicadora" })
+    } else {
+
+        if (check_exist_book.length > 0) {
+            await prisma.book.create({
+                data: {
+                    name: name,
+                    author: author ? String(author) : undefined,
+                    price: price ? parseFloat(price) : undefined,
+                    amount: amount ? parseInt(amount) : undefined,
+                    publisher: publisher ? String(publisher) : undefined
+                }
+            })
+
+            return res.status(201).json(req.body)
+        }else{
+            return res.status(400).json({message: "Você não pode adicionar um livro que tem o mesmo nome, author, preço, quantidade e publicadora"})
+        }
+
     }
 })
 
@@ -62,7 +81,7 @@ router.delete("/Books/:id", async (req, res) => {
 })
 
 router.put("/Books/:id", async (req, res) => {
-    const { name, author, price, amount } = req.body
+    const { name, author, price, amount, publisher } = req.body
     
     let book = await prisma.book.findUnique({
         where: {
@@ -70,17 +89,18 @@ router.put("/Books/:id", async (req, res) => {
         }
     })
 
-    if (check_id(req.params.id) == true && book.length > 0) {
+    if (check_id(req.params.id) && book) {
         
-        if (!name || !author || !price || !amount) {
-            res.status(400).json({ message: "Você não pode criar um livro sem expecificar o seu nome, author, preço e quantidade" })
+        if (!name || !author || !price || !amount || !publisher) {
+            res.status(400).json({ message: "Você não pode criar um livro sem expecificar o seu nome, author, preço, quantidade e publicadora" })
         } else {
             await prisma.book.update({
                 data: {
-                    name,
-                    author,
-                    price,
-                    amount
+                    name: name,
+                    author: author ? String(author) : undefined,
+                    price: price ? parseFloat(price) : undefined,
+                    amount: amount ? parseInt(amount) : undefined,
+                    publisher: publisher ? String(publisher) : undefined
                 },
                 where: {
                     id: req.params.id
@@ -90,7 +110,7 @@ router.put("/Books/:id", async (req, res) => {
         }
 
     } else {
-        return res.status(400).json({ message: "Você não pode atualizar um livro sem expecificar o seu nome, author, preço e quantidade" })
+        return res.status(400).json({ message: "Você não pode atualizar um livro sem expecificar o seu nome, author, preço, quantidade e publicadora" })
     }
 })
 

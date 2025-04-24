@@ -115,7 +115,8 @@ exports.Prisma.BookScalarFieldEnum = {
   name: 'name',
   author: 'author',
   price: 'price',
-  amount: 'amount'
+  amount: 'amount',
+  publisher: 'publisher'
 };
 
 exports.Prisma.SortOrder = {
